@@ -1,13 +1,13 @@
 from flask import Flask
-from database import get_db_connection
+from database import initialize_database
 
 app = Flask(__name__)
 
+initialize_database()
+
 @app.route("/")
 def home():
-    conn = get_db_connection()
-    conn.close()
-    return "FocusLens Database Connection Successful"
+    return "FocusLens backend running"
 
 if __name__ == "__main__":
     app.run(debug=True)
