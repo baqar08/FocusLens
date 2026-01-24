@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect
-from database import initialize_database, insert_session
+from database import initialize_database, insert_session, fetch_sessions
 
 app = Flask(__name__)
 
@@ -15,10 +15,10 @@ def home():
         task_type = request.form.get("task_type")
 
         insert_session(session_date, time_period, duration, energy_level, task_type)
-
         return redirect("/")
 
-    return render_template("index.html")
+    sessions = fetch_sessions()
+    return render_template("index.html", sessions=sessions)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -21,3 +21,13 @@ def insert_session(session_date, time_period, duration, energy_level, task_type)
     )
     connection.commit()
     connection.close()
+
+def fetch_sessions():
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute(
+        "SELECT session_date, time_period, duration, energy_level, task_type FROM sessions ORDER BY id DESC"
+    )
+    rows = cursor.fetchall()
+    connection.close()
+    return rows

@@ -35,5 +35,26 @@
 
         <button type="submit">Save Session</button>
     </form>
+
+    <h2>Saved Sessions</h2>
+
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Duration</th>
+            <th>Energy</th>
+            <th>Task</th>
+        </tr>
+        {% for session in sessions %}
+        <tr>
+            <td>{{ session[0] }}</td>
+            <td>{{ session[1] }}</td>
+            <td>{{ session[2] }}</td>
+            <td>{{ session[3] }}</td>
+            <td>{{ session[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
