@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from database import initialize_database, insert_session, fetch_sessions
+from utils.analysis import analyze_sessions
 
 app = Flask(__name__)
 
@@ -18,7 +19,9 @@ def home():
         return redirect("/")
 
     sessions = fetch_sessions()
-    return render_template("index.html", sessions=sessions)
+    insights = analyze_sessions(sessions)
+
+    return render_template("index.html", sessions=sessions, insights=insights)
 
 if __name__ == "__main__":
     app.run(debug=True)
