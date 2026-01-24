@@ -11,3 +11,13 @@ def initialize_database():
     )
     connection.commit()
     connection.close()
+
+def insert_session(session_date, time_period, duration, energy_level, task_type):
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute(
+        "INSERT INTO sessions (session_date, time_period, duration, energy_level, task_type) VALUES (?, ?, ?, ?, ?)",
+        (session_date, time_period, duration, energy_level, task_type)
+    )
+    connection.commit()
+    connection.close()
