@@ -7,6 +7,33 @@
 </head>
 <body>
     <h1>FocusLens</h1>
-    <p>Productivity Pattern Visualizer</p>
+    <h2>Add Productivity Session</h2>
+
+    <form method="post">
+        <label>Date</label>
+        <input type="date" name="session_date" required>
+
+        <label>Time Period</label>
+        <select name="time_period" required>
+            <option value="morning">Morning</option>
+            <option value="afternoon">Afternoon</option>
+            <option value="evening">Evening</option>
+        </select>
+
+        <label>Duration (minutes)</label>
+        <input type="number" name="duration" required>
+
+        <label>Energy Level</label>
+        <select name="energy_level" required>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+
+        <label>Task Type</label>
+        <input type="text" name="task_type" required>
+
+        <button type="submit">Save Session</button>
+    </form>
 </body>
 </html>
