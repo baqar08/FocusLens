@@ -26,8 +26,18 @@ def fetch_sessions():
     connection = get_connection()
     cursor = connection.cursor()
     cursor.execute(
-        "SELECT session_date, time_period, duration, energy_level, task_type FROM sessions ORDER BY id DESC"
+        "SELECT id, session_date, time_period, duration, energy_level, task_type FROM sessions ORDER BY id DESC"
     )
     rows = cursor.fetchall()
     connection.close()
     return rows
+
+def delete_session(session_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute(
+        "DELETE FROM sessions WHERE id = ?",
+        (session_id,)
+    )
+    connection.commit()
+    connection.close()

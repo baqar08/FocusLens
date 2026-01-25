@@ -7,9 +7,9 @@ def analyze_sessions(sessions):
     energy_counts = {}
 
     for session in sessions:
-        time_period = session[1]
-        duration = int(session[2])
-        energy = session[3]
+        time_period = session[2]
+        duration = int(session[3])
+        energy = session[4]
 
         time_counts[time_period] = time_counts.get(time_period, 0) + 1
         energy_counts[energy] = energy_counts.get(energy, 0) + 1
