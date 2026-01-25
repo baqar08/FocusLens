@@ -6,21 +6,23 @@ app = Flask(__name__)
 
 initialize_database()
 
+def handle_submission():
+    session_date = request.form.get("session_date")
+    time_period = request.form.get("time_period")
+    duration = request.form.get("duration")
+    energy_level = request.form.get("energy_level")
+    task_type = request.form.get("task_type")
+
+    insert_session(session_date, time_period, duration, energy_level, task_type)
+
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
-        session_date = request.form.get("session_date")
-        time_period = request.form.get("time_period")
-        duration = request.form.get("duration")
-        energy_level = request.form.get("energy_level")
-        task_type = request.form.get("task_type")
-
-        insert_session(session_date, time_period, duration, energy_level, task_type)
+        handle_submission()
         return redirect("/")
 
     sessions = fetch_sessions()
     insights = analyze_sessions(sessions)
-
     return render_template("index.html", sessions=sessions, insights=insights)
 
 @app.route("/chart-data")
