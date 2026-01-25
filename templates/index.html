@@ -45,6 +45,7 @@
         <ul>
             <li>Most productive time period: {{ insights.most_productive_time }}</li>
             <li>Most common energy level: {{ insights.most_common_energy }}</li>
+            <li>Most frequent task type: {{ insights.most_common_task }}</li>
             <li>Average session duration: {{ insights.average_duration }} minutes</li>
         </ul>
     </div>
@@ -60,14 +61,20 @@
                 <th>Duration</th>
                 <th>Energy</th>
                 <th>Task</th>
+                <th>Action</th>
             </tr>
             {% for session in sessions %}
             <tr>
-                <td>{{ session[0] }}</td>
                 <td>{{ session[1] }}</td>
                 <td>{{ session[2] }}</td>
                 <td>{{ session[3] }}</td>
                 <td>{{ session[4] }}</td>
+                <td>{{ session[5] }}</td>
+                <td>
+                    <form method="post" action="/delete/{{ session[0] }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </table>
