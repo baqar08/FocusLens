@@ -2,7 +2,7 @@ def analyze_sessions(sessions):
     if not sessions:
         return {}
 
-    time_counts = {}
+    time_counts = {"morning": 0, "afternoon": 0, "evening": 0}
     energy_counts = {}
     task_counts = {}
     total_duration = 0
@@ -13,7 +13,7 @@ def analyze_sessions(sessions):
         energy = session[4]
         task = session[5]
 
-        time_counts[time_period] = time_counts.get(time_period, 0) + 1
+        time_counts[time_period] += 1
         energy_counts[energy] = energy_counts.get(energy, 0) + 1
         task_counts[task] = task_counts.get(task, 0) + 1
         total_duration += duration
@@ -41,5 +41,6 @@ def analyze_sessions(sessions):
         "most_common_task": max(task_counts, key=task_counts.get),
         "average_duration": average_duration,
         "consistency_level": consistency,
-        "workload_level": workload
+        "workload_level": workload,
+        "time_distribution": time_counts
     }
