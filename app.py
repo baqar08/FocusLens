@@ -27,7 +27,7 @@ def home():
 def chart_data():
     sessions = fetch_sessions()
     insights = analyze_sessions(sessions)
-    return jsonify(insights["time_distribution"])
+    return jsonify(insights)
 
 @app.route("/delete/<int:session_id>", methods=["POST"])
 def remove_session(session_id):

@@ -3,8 +3,9 @@ def analyze_sessions(sessions):
         return {}
 
     time_counts = {"morning": 0, "afternoon": 0, "evening": 0}
-    energy_counts = {}
+    energy_trend = []
     task_counts = {}
+    energy_map = {"low": 1, "medium": 2, "high": 3}
     total_duration = 0
 
     for session in sessions:
@@ -14,8 +15,8 @@ def analyze_sessions(sessions):
         task = session[5]
 
         time_counts[time_period] += 1
-        energy_counts[energy] = energy_counts.get(energy, 0) + 1
         task_counts[task] = task_counts.get(task, 0) + 1
+        energy_trend.append(energy_map.get(energy, 0))
         total_duration += duration
 
     session_count = len(sessions)
@@ -36,11 +37,10 @@ def analyze_sessions(sessions):
         workload = "Light"
 
     return {
-        "most_productive_time": max(time_counts, key=time_counts.get),
-        "most_common_energy": max(energy_counts, key=energy_counts.get),
-        "most_common_task": max(task_counts, key=task_counts.get),
+        "time_distribution": time_counts,
+        "task_distribution": task_counts,
+        "energy_trend": energy_trend,
         "average_duration": average_duration,
         "consistency_level": consistency,
-        "workload_level": workload,
-        "time_distribution": time_counts
+        "workload_level": workload
     }
