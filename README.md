@@ -32,6 +32,8 @@ A showcase of the application features and workflow.
 
 🎥 [DEMO VIDEO](https://drive.google.com/file/d/1IyzLpv_VeMk9Cdp778ySwCuYTT15nJJC/view?usp=sharing)
 
+### Live Demo [Link](https://focuslens.onrender.com)
+
 ## Local Setup and Installation
 
 Follow these steps to get the application running on your local machine.
