@@ -15,15 +15,19 @@ def handle_submission():
 
     insert_session(session_date, time_period, duration, energy_level, task_type)
 
-@app.route("/", methods=["GET", "POST"])
-def home():
+@app.route("/")
+def landing():
+    return render_template("index.html")
+
+@app.route("/dashboard", methods=["GET", "POST"])
+def dashboard():
     if request.method == "POST":
         handle_submission()
-        return redirect("/")
+        return redirect("/dashboard")
 
     sessions = fetch_sessions()
     insights = analyze_sessions(sessions)
-    return render_template("index.html", sessions=sessions, insights=insights)
+    return render_template("dashboard.html", sessions=sessions, insights=insights)
 
 @app.route("/chart-data")
 def chart_data():
@@ -34,7 +38,7 @@ def chart_data():
 @app.route("/delete/<int:session_id>", methods=["POST"])
 def remove_session(session_id):
     delete_session(session_id)
-    return redirect("/")
+    return redirect("/dashboard")
 
 if __name__ == "__main__":
     app.run(debug=True)

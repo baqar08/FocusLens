@@ -1,100 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>FocusLens</title>
     <link rel="stylesheet" href="/static/css/styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        stone: {
+                            850: '#1c1917',
+                            900: '#0c0a09',
+                            950: '#0c0a09'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-100 p-10">
-    <h1 class="text-3xl font-bold mb-10">FocusLens</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div class="bg-white p-6 rounded-lg">
-            <h2 class="text-xl font-semibold mb-4">Add Productivity Session</h2>
+<body
+    class="bg-stone-950 text-stone-200 min-h-screen font-sans selection:bg-white selection:text-stone-950 flex items-center justify-center overflow-hidden">
+    <div id="grid-background" class="grid-background"></div>
 
-            <form method="post" class="space-y-4">
-                <div>
-                    <label class="block">Date</label>
-                    <input type="date" name="session_date" required class="w-full border p-2 rounded">
-                </div>
+    <div class="content-wrapper relative z-10 max-w-4xl mx-auto px-6 text-center">
+        <h1 class="text-7xl md:text-9xl font-extrabold text-stone-100 tracking-tighter uppercase mb-6 drop-shadow-2xl">
+            FocusLens
+        </h1>
 
-                <div>
-                    <label class="block">Time Period</label>
-                    <select name="time_period" required class="w-full border p-2 rounded">
-                        <option value="morning">Morning</option>
-                        <option value="afternoon">Afternoon</option>
-                        <option value="evening">Evening</option>
-                    </select>
-                </div>
+        <p
+            class="text-stone-400 text-xl md:text-2xl font-light mb-12 max-w-2xl mx-auto leading-relaxed border-l-4 border-stone-800 pl-6 text-left md:text-center md:border-l-0 md:pl-0">
+            A minimalist productivity intelligence system designed to track, analyze, and optimize your cognitive output
+            with precision.
+        </p>
 
-                <div>
-                    <label class="block">Duration (minutes)</label>
-                    <input type="number" name="duration" required class="w-full border p-2 rounded">
-                </div>
-
-                <div>
-                    <label class="block">Energy Level</label>
-                    <select name="energy_level" required class="w-full border p-2 rounded">
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block">Task Type</label>
-                    <input type="text" name="task_type" required class="w-full border p-2 rounded">
-                </div>
-
-                <button type="submit" class="w-full bg-black text-white py-2 rounded">
-                    Save Session
-                </button>
-            </form>
+        <div class="space-y-4 md:space-y-0 md:space-x-6">
+            <a href="/dashboard"
+                class="inline-block bg-white hover:bg-stone-200 text-stone-950 font-bold text-lg py-5 px-10 rounded-lg transition-all shadow-[0_4px_14px_0_rgba(255,255,255,0.1)] hover:shadow-[0_6px_20px_rgba(255,255,255,0.23)] transform hover:-translate-y-1">
+                Enter System
+            </a>
         </div>
 
-        <div class="bg-white p-6 rounded-lg">
-            <h2 class="text-xl font-semibold mb-4">Analytics Dashboard</h2>
-            <canvas id="timeChart" class="mb-6"></canvas>
-            <canvas id="taskChart" class="mb-6"></canvas>
-            <canvas id="energyChart"></canvas>
+        <div class="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8 text-stone-500 font-mono text-sm opacity-60">
+            <div>
+                <span class="block text-2xl font-bold text-stone-300">01</span>
+                <span>DATA</span>
+            </div>
+            <div>
+                <span class="block text-2xl font-bold text-stone-300">02</span>
+                <span>ANALYSIS</span>
+            </div>
+            <div>
+                <span class="block text-2xl font-bold text-stone-300">03</span>
+                <span>INSIGHT</span>
+            </div>
+            <div>
+                <span class="block text-2xl font-bold text-stone-300">04</span>
+                <span>OPTIMIZE</span>
+            </div>
         </div>
     </div>
-
-    <div class="bg-white p-6 rounded-lg mt-10">
-        <h2 class="text-xl font-semibold mb-4">Saved Sessions</h2>
-
-        <div class="overflow-x-auto">
-            <table class="w-full border">
-                <tr class="bg-gray-200">
-                    <th class="p-2 border">Date</th>
-                    <th class="p-2 border">Time</th>
-                    <th class="p-2 border">Duration</th>
-                    <th class="p-2 border">Energy</th>
-                    <th class="p-2 border">Task</th>
-                    <th class="p-2 border">Action</th>
-                </tr>
-                {% for session in sessions %}
-                <tr>
-                    <td class="p-2 border">{{ session[1] }}</td>
-                    <td class="p-2 border">{{ session[2] }}</td>
-                    <td class="p-2 border">{{ session[3] }}</td>
-                    <td class="p-2 border">{{ session[4] }}</td>
-                    <td class="p-2 border">{{ session[5] }}</td>
-                    <td class="p-2 border">
-                        <form method="post" action="/delete/{{ session[0] }}">
-                            <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded">
-                                Delete
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </div>
-
-    <script src="/static/js/app.js"></script>
 </body>
-</html> 
+
+</html>
