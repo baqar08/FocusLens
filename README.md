@@ -25,14 +25,12 @@
 *   **Backend:** Python, Flask
 *   **Database:** SQLite
 *   **Frontend:** HTML5, CSS3, JavaScript
-*   **Templating:** Jinja2
 
 ## Demo Video
 
 A showcase of the application features and workflow.
 
-<!-- 🎥 [DEMO VIDEO](link_to_video) -->
-*Demo video coming soon.*
+🎥 [DEMO VIDEO](https://drive.google.com/file/d/1IyzLpv_VeMk9Cdp778ySwCuYTT15nJJC/view?usp=sharing)
 
 ## Local Setup and Installation
 
